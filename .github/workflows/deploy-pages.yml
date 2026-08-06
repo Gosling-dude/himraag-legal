@@ -42,4 +42,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v5
         with:
-          timeout: 1800000
+          # 600000ms (10 min) is the maximum this action accepts. Larger values
+          # are silently clamped to it and only emit a warning, so asking for
+          # 30 minutes never actually bought any extra time.
+          timeout: 600000
