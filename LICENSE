@@ -1,0 +1,47 @@
+MIT License
+
+Copyright (c) 2026 Sumit Chauhan (HimRaag)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---------------------------------------------------------------------------
+SCOPE OF THIS LICENSE
+---------------------------------------------------------------------------
+
+The MIT grant above applies to the SITE CODE in this repository: the HTML
+structure, the CSS in assets/css/, and the build/deployment configuration.
+Reuse it freely.
+
+The grant does NOT apply to:
+
+  1. THE LEGAL TEXT — the contents of privacy.html, terms.html and
+     delete-account.html. These documents describe the specific data flows,
+     service providers and commitments of the HimRaag application. They are
+     published so HimRaag's users can read them, not as a template.
+
+     Please do not copy them for another app. A privacy policy that does not
+     match what your software actually does is worse than having none: it
+     misleads your users and it will not survive review.
+
+  2. THE HIMRAAG NAME, LOGO AND BRANDING — including assets/images/logo.png
+     and the "HimRaag" wordmark. All rights reserved.
+
+  3. THE MUSIC, RECORDINGS, ARTWORK AND METADATA in the HimRaag application,
+     which remain the property of their respective artists, composers and
+     rights-holders. Nothing in this repository grants any right to them.
