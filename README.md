@@ -55,19 +55,19 @@ himraag-legal/
 
 ## Deployment (GitHub Pages)
 
-The site is served straight from the default branch — there is no build step, no bundler and no
-CI pipeline. Push to `main` and the change is live within about a minute.
+The site is deployed through a GitHub Actions workflow in
+`.github/workflows/deploy-pages.yml`. There is no
+build tooling or bundler — it simply uploads the repository root as a Pages artifact and deploys
+it.
 
 **Settings used:**
 
 | Setting | Value |
 |---|---|
-| Source | Deploy from a branch |
-| Branch | `main` |
-| Folder | `/` (root) |
+| Source | GitHub Actions |
+| Workflow | `.github/workflows/deploy-pages.yml` |
 
-To configure it from scratch: **Settings → Pages → Source: Deploy from a branch → `main` / `root`
-→ Save.**
+To configure it from scratch: **Settings → Pages → Source: GitHub Actions → Save.**
 
 `.nojekyll` is present so GitHub serves the files verbatim instead of running them through Jekyll.
 Nothing here depends on Jekyll, and the file prevents surprises with any future directory whose
