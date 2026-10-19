@@ -57,7 +57,7 @@
       <span class="eyebrow">Your data</span>
       <h1>Delete Your Account</h1>
       <p class="meta">
-        <strong>Last updated:</strong> 6 August 2026 &nbsp;·&nbsp;
+        <strong>Last updated:</strong> 20 October 2026 &nbsp;·&nbsp;
         <strong>Applies to:</strong> HimRaag Android app (<code>com.sumitchauhan.himraag</code>)
       </p>
     </div>
@@ -73,18 +73,39 @@
       </p>
 
       <div class="callout callout--ok">
-        <strong>Never signed in? There is nothing to delete.</strong>
+        <strong>Never signed in? There is no account to delete.</strong>
         <p>
-          If you only ever used HimRaag as a <strong>guest</strong>, none of your data left your
-          device &mdash; we hold nothing about you on our servers. Uninstalling the app removes
-          everything. See <a href="#local">removing local data</a>.
+          HimRaag requires a Google sign-in, so if you installed it but never signed in we hold no
+          account data about you. Only the pseudonymous analytics and crash data described in
+          <a href="#remains">section 3</a> may exist. Uninstalling the app removes everything on
+          your phone. See <a href="#local">removing local data</a>.
         </p>
       </div>
 
-      <h2 id="how">1. How to request deletion</h2>
+      <h2 id="how">1. How to delete your account</h2>
+
+      <h3>In the app (fastest)</h3>
+      <ol class="steps">
+        <li>
+          <strong>Open Profile &rarr; Delete account</strong>
+          The app explains what will be deleted and asks you to confirm.
+        </li>
+        <li>
+          <strong>Confirm with Google if asked</strong>
+          For security, Firebase only allows deletion shortly after a sign-in, so the app may ask you
+          to choose your Google account again.
+        </li>
+        <li>
+          <strong>Done</strong>
+          Your account and your song requests are deleted straight away, and your favourites and
+          listening history on that phone are cleared.
+        </li>
+      </ol>
+
+      <h3>By email</h3>
       <p>
-        Account deletion is currently handled by email. We verify the request, delete your records,
-        and confirm in writing when it is done.
+        If you no longer have the app, you can ask us by email instead. We verify the request,
+        delete your records, and confirm in writing when it is done.
       </p>
 
       <ol class="steps">
@@ -119,8 +140,8 @@
 
       <h2 id="deleted">2. What is deleted</h2>
       <p>
-        When your request is processed, the following are <strong>permanently removed</strong> from
-        our systems (Firebase Authentication and Cloud Firestore):
+        When your account is deleted (in the app, or by us after an email request), the following
+        are <strong>permanently removed</strong>:
       </p>
       <div class="table-wrap">
         <table>
@@ -131,17 +152,15 @@
           <tbody>
             <tr><td>Your account record &mdash; email, display name, profile photo URL, user ID</td><td>Firebase Authentication</td></tr>
             <tr><td>Sign-in credentials and session tokens</td><td>Firebase Authentication</td></tr>
-            <tr><td>Profile personalization &mdash; preferred regions, languages and genres</td><td>Cloud Firestore</td></tr>
-            <tr><td>Favourites</td><td>Cloud Firestore</td></tr>
-            <tr><td>Playlists you created</td><td>Cloud Firestore</td></tr>
-            <tr><td>Artists you follow</td><td>Cloud Firestore</td></tr>
-            <tr><td>Listening history and recently played</td><td>Cloud Firestore</td></tr>
-            <tr><td>&ldquo;Continue listening&rdquo; position and play counts</td><td>Cloud Firestore</td></tr>
-            <tr><td>Download records (which tracks you saved offline)</td><td>Cloud Firestore</td></tr>
-            <tr><td>Recommendation signals derived from the above</td><td>Cloud Firestore</td></tr>
+            <tr><td>Your song requests &mdash; song details, search text, your name and email</td><td>Cloud Firestore</td></tr>
+            <tr><td>Favourites and listening history (cleared by in-app deletion on the phone you use)</td><td>Your phone</td></tr>
           </tbody>
         </table>
       </div>
+      <p>
+        Your favourites, listening history, settings and download records are never stored on our
+        servers; they live only on your phone (see <a href="#local">section 5</a>).
+      </p>
       <p>
         Once deleted, this data <strong>cannot be recovered</strong>. If you sign in again later you
         start with a completely new, empty account.
@@ -169,9 +188,19 @@
               <td>Google Firebase&rsquo;s standard retention period</td>
             </tr>
             <tr>
-              <td>Server and CDN access logs (Cloudflare R2)</td>
+              <td>Server and CDN access logs (Cloudflare)</td>
               <td>Generated automatically when content is delivered; used for security and abuse prevention</td>
               <td>Short-term, per the provider&rsquo;s log retention</td>
+            </tr>
+            <tr>
+              <td>Copies of your song-request alerts</td>
+              <td>Delivered to the developer&rsquo;s own Telegram chat and mailbox when you sent the request</td>
+              <td>Until the developer deletes them &mdash; ask us by email and we will delete them</td>
+            </tr>
+            <tr>
+              <td>Daily play counter (only where server-side play counting is active)</td>
+              <td>A single number per account per day, used to limit abuse of play counts</td>
+              <td>Deleted on email request</td>
             </tr>
             <tr>
               <td>Email correspondence with us</td>
@@ -198,9 +227,9 @@
 
       <h2 id="time">4. How long it takes</h2>
       <div class="callout callout--gold">
-        <strong>Processed within 30 days &mdash; usually much sooner</strong>
+        <strong>In-app deletion is immediate. Email requests: within 30 days &mdash; usually much sooner</strong>
         <p>
-          We aim to acknowledge your request within <strong>2&ndash;3 business days</strong> and to
+          For email requests, we aim to acknowledge within <strong>2&ndash;3 business days</strong> and to
           complete deletion well inside the <strong>30-day</strong> commitment in our
           <a href="privacy.html#rights">Privacy Policy</a>. Most requests are done within a few days.
         </p>
@@ -212,14 +241,15 @@
         separately &mdash; and immediately &mdash; by you:
       </p>
       <ul>
-        <li><strong>Downloaded songs</strong> &mdash; delete them in the app, or uninstall HimRaag to remove them all at once.</li>
-        <li><strong>Guest preferences, favourites and history</strong> &mdash; stored only on the device; uninstalling removes them.</li>
+        <li><strong>Downloaded songs</strong> &mdash; in-app account deletion does not remove them; delete them in the app, or uninstall HimRaag to remove them all at once.</li>
+        <li><strong>Favourites and listening history</strong> &mdash; stored only on the device; in-app account deletion clears them, and uninstalling removes them.</li>
+        <li><strong>Settings and play counts waiting to be sent</strong> &mdash; stored only on the device; removed on uninstall.</li>
         <li><strong>Cached artwork and offline data</strong> &mdash; removed on uninstall.</li>
       </ul>
       <p>
-        Signing out and uninstalling the app deletes every piece of HimRaag data on your device. It
-        does <strong>not</strong> by itself delete your server-side account &mdash; for that, send
-        the email above.
+        Uninstalling the app deletes every piece of HimRaag data on your device. It does
+        <strong>not</strong> by itself delete your server-side account &mdash; for that, use
+        <strong>Profile &rarr; Delete account</strong> or send the email above.
       </p>
 
       <h2 id="google">6. Revoking Google Sign-In access</h2>
@@ -228,18 +258,14 @@
         Google account at any time from your Google account&rsquo;s
         <a href="https://myaccount.google.com/permissions" rel="noopener noreferrer" target="_blank">third-party apps and services</a>
         page. Doing this stops future sign-ins but does not, on its own, delete the data we already
-        hold &mdash; please email us as well.
+        hold &mdash; please also delete your account in the app or email us.
       </p>
 
-      <h2 id="in-app">7. In-app deletion (coming in a future release)</h2>
+      <h2 id="in-app">7. In-app deletion</h2>
       <p>
-        We are building <strong>&ldquo;Delete account&rdquo; directly into the app</strong>, so you
-        will be able to remove your account from the profile screen without emailing anyone. It will
-        ask you to confirm, explain what is about to be deleted, and complete immediately.
-      </p>
-      <p>
-        Until that ships, the email route on this page is the official method and is honoured in
-        full. This page will be updated when the in-app option is available.
+        <strong>&ldquo;Delete account&rdquo; is built into the app</strong> under Profile. It asks
+        you to confirm, explains what is about to be deleted, and completes immediately. The email
+        route above remains available and is honoured in full.
       </p>
 
       <h2 id="questions">8. Questions</h2>

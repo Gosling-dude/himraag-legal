@@ -57,7 +57,7 @@
       <span class="eyebrow">Legal</span>
       <h1>Privacy Policy</h1>
       <p class="meta">
-        <strong>Last updated:</strong> 6 August 2026 &nbsp;·&nbsp;
+        <strong>Last updated:</strong> 20 October 2026 &nbsp;·&nbsp;
         <strong>Applies to:</strong> HimRaag Android app (<code>com.sumitchauhan.himraag</code>)
       </p>
     </div>
@@ -77,7 +77,7 @@
         <h2>On this page</h2>
         <ol>
           <li><a href="#who-we-are">Who we are</a></li>
-          <li><a href="#guest">Using HimRaag without an account</a></li>
+          <li><a href="#account-required">Signing in is required</a></li>
           <li><a href="#collect">Information we collect</a></li>
           <li><a href="#permissions">Permissions and why</a></li>
           <li><a href="#cookies">Cookies and local storage</a></li>
@@ -98,10 +98,11 @@
       <div class="callout callout--ok">
         <strong>The short version</strong>
         <p>
-          You can use HimRaag without an account. We do not sell your data, we show no ads, and we
-          never ask for your location, contacts, camera, microphone or photos. If you sign in, we
-          store your profile and your library so it follows you between devices &mdash; and you can
-          have all of it deleted on request.
+          HimRaag needs a Google sign-in. We do not sell your data, we show no ads, we do not use
+          the Advertising ID, and we never ask for your location, contacts, camera, microphone or
+          photos. Your favourites, listening history and downloads stay on your phone. Our servers
+          hold your sign-in account and any song requests you send us &mdash; and you can delete
+          your account from inside the app.
         </p>
       </div>
 
@@ -115,17 +116,16 @@
         <a href="mailto:sc5271027@gmail.com">sc5271027@gmail.com</a>
       </p>
 
-      <h2 id="guest">2. Using HimRaag without an account</h2>
+      <h2 id="account-required">2. Signing in is required</h2>
       <p>
-        You can browse and listen as a <strong>guest</strong>. In guest mode your preferences,
-        favourites and listening history are stored <strong>only on your device</strong> and are
-        never written to our servers. If you later sign in, the preferences held on the device may
-        be merged into your account.
+        HimRaag has no guest mode. You need to sign in with a <strong>Google account</strong>
+        before you can browse or listen. Earlier versions offered a guest mode; it has been
+        removed.
       </p>
 
       <h2 id="collect">3. Information we collect</h2>
 
-      <h3>3.1 Account information (only if you sign in)</h3>
+      <h3>3.1 Account information</h3>
       <p>
         HimRaag uses <strong>Firebase Authentication</strong> with <strong>Google Sign-In</strong>.
         When you sign in with Google, we receive and store:
@@ -151,50 +151,78 @@
         password.</strong> Authentication is handled entirely by Google.
       </p>
 
-      <h3>3.2 Your music preferences and activity</h3>
+      <h3>3.2 Your library and listening activity (kept on your phone)</h3>
       <p>
-        Stored in <strong>Cloud Firestore</strong> against your account so your library follows you
-        between devices:
+        The following are stored <strong>only on your device</strong>, in the app&rsquo;s local
+        database. They are not uploaded to our servers and do not follow you to another phone:
       </p>
       <ul>
-        <li><strong>Profile personalization</strong> &mdash; preferred regions, languages and genres</li>
-        <li>Artists you follow</li>
         <li><strong>Favourites</strong> &mdash; songs you have saved</li>
-        <li>Playlists you create</li>
         <li><strong>Listening history</strong> &mdash; recently played tracks</li>
-        <li>&ldquo;Continue listening&rdquo; position (track and playback position)</li>
-        <li>Total play count</li>
+        <li><strong>Settings</strong> &mdash; for example theme and autoplay</li>
+        <li><strong>Download records</strong> &mdash; which tracks you saved for offline listening</li>
       </ul>
-
-      <h3>3.3 Recommendations</h3>
       <p>
-        Personalized recommendations are generated from the preferences and activity listed above
-        &mdash; the regions, languages, genres and artists you choose, and what you have listened
-        to. This processing happens to order the content shown inside the app.
+        Signing out leaves this data on the phone. You can clear your listening history in
+        <strong>Profile &rarr; Clear listening history</strong>.
+      </p>
+
+      <h3>3.3 Play counts</h3>
+      <p>
+        When you have listened to a song for about 30 seconds (or half of a short song), the app
+        counts one play. It keeps these counts on your phone and periodically sends them, with your
+        sign-in, to our server so that each song&rsquo;s overall play count can be updated. The
+        server is designed to keep only a <strong>daily total per account</strong> (to limit
+        abuse) and to add your plays to each song&rsquo;s anonymous total. It does not keep a list
+        of which songs you played.
+      </p>
+
+      <h3>3.4 Song requests</h3>
+      <p>
+        If you use <strong>Request a song</strong>, we store the details you type (song title, and
+        optionally the singer, a link and notes), what you had typed in Search, and your user ID,
+        name and email address in <strong>Cloud Firestore</strong>, so that we can find the song
+        and you can see your requests under Profile. We also send a copy of the request, including
+        your name and email address, to the developer as a <strong>Telegram</strong> message and an
+        <strong>email</strong> (delivered by Resend), through a small Cloudflare Worker. Song
+        requests are never shown to other listeners.
+      </p>
+
+      <h3>3.5 Recommendations</h3>
+      <p>
+        Recommendations are worked out <strong>on your phone</strong> from your favourites, your
+        downloads and what you have recently played. To do this the app looks up those songs in our
+        catalogue. This processing only orders the content shown inside the app.
         <strong>We do not use your data to target advertising</strong>, and we do not share it with
         advertisers or data brokers for any purpose.
       </p>
 
-      <h3>3.4 Downloaded songs</h3>
+      <h3>3.6 Downloaded songs</h3>
       <p>
         Downloaded tracks are saved to <strong>private storage inside the app&rsquo;s own
         folder</strong> on your device. They are not readable by other apps, are not uploaded
-        anywhere, and are deleted when you remove the download or uninstall the app. We store only
-        the record of which tracks you chose to download, so the app can manage your offline
-        library.
+        anywhere, and are deleted when you remove the download or uninstall the app. The record of
+        which tracks you downloaded is also kept only on your phone, so the app can manage your
+        offline library.
       </p>
 
-      <h3>3.5 Analytics and crash reporting</h3>
+      <h3>3.7 Analytics and crash reporting</h3>
       <p>
         The app includes <strong>Google Firebase Analytics</strong> and
         <strong>Firebase Crashlytics</strong>.
       </p>
       <p>
-        <strong>Firebase Analytics</strong> automatically collects a standard set of app-usage data
-        even though we do not currently record custom events. This includes app opens, screen views,
-        session length, device model, operating system version, language, an
-        <strong>approximate location derived from your IP address</strong> (country/region level,
-        not precise location), and an advertising identifier.
+        <strong>Firebase Analytics</strong> automatically collects a standard set of app-usage data:
+        app opens, screen views, session length, device model, operating system version, language,
+        an app-instance identifier, and an <strong>approximate location derived from your IP
+        address</strong> (country/region level, not precise location). In addition, the app records
+        one event of its own, <code>song_play</code>, containing the ID of the song, each time a
+        play is counted (see 3.3). We do not attach your name, email or account ID to Analytics.
+      </p>
+      <p>
+        <strong>The app does not collect the Android Advertising ID.</strong> Advertising ID
+        collection is switched off in the app&rsquo;s configuration and the Advertising ID
+        permission is removed, so Analytics cannot read it.
       </p>
       <p>
         <strong>Firebase Crashlytics</strong> collects diagnostic data <strong>only when the app
@@ -204,8 +232,8 @@
       <div class="callout callout--gold">
         <strong>Future analytics</strong>
         <p>
-          If we later introduce custom analytics events to understand which features are used, they
-          will measure app usage only &mdash; never the content of your personal communications, and
+          If we add further analytics events to understand which features are used, they will
+          measure app usage only &mdash; never the content of your personal communications, and
           never for advertising. This policy and our Play Data Safety declaration will be updated
           before any such change ships.
         </p>
@@ -218,13 +246,19 @@
         </p>
       </div>
 
-      <h3>3.6 Content delivery</h3>
+      <h3>3.8 Content delivery</h3>
       <p>
-        Audio files and artwork are served from <strong>Cloudflare R2</strong>. When your device
-        requests a track or an image, Cloudflare receives your IP address and standard request
-        headers, as is unavoidable for any internet content delivery. Cloudflare processes this to
-        deliver content and to protect against abuse. Your account identity is not sent with these
-        requests.
+        Audio files and artwork are served from <strong>Cloudflare</strong> (R2 storage, delivered
+        through a Cloudflare Worker). When your device requests a track or an image, Cloudflare
+        receives your IP address and standard request headers, as is unavoidable for any internet
+        content delivery. Cloudflare processes this to deliver content and to protect against abuse.
+      </p>
+      <p>
+        When the app streams or downloads audio through our content-delivery address
+        (<code>cdn.himraag.in</code>), it adds your Firebase sign-in token to the request so that
+        only signed-in listeners can play the music. That token identifies your account (your user
+        ID, and the name and email address from your Google profile). Our delivery code checks the
+        token and does not store it. Artwork requests carry no sign-in token.
       </p>
 
       <h2 id="permissions">4. Permissions the app requests, and why</h2>
@@ -239,12 +273,16 @@
             <tr><td><code>FOREGROUND_SERVICE</code>, <code>FOREGROUND_SERVICE_MEDIA_PLAYBACK</code></td><td>Continuing playback when the app is in the background</td></tr>
             <tr><td><code>WAKE_LOCK</code></td><td>Preventing the device sleeping mid-track</td></tr>
             <tr><td><code>POST_NOTIFICATIONS</code></td><td>Showing the playback notification with track controls</td></tr>
+            <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>Declared for the media-playback service (restoring the media session after the phone restarts)</td></tr>
+            <tr><td><code>READ_EXTERNAL_STORAGE</code> (Android 12 and older only)</td><td>Declared in the app manifest; the app does not ask for it while running, and downloads are kept in the app&rsquo;s private folder, which needs no storage permission</td></tr>
+            <tr><td>Google Play services permissions added by Firebase (<code>c2dm.permission.RECEIVE</code>, <code>BIND_GET_INSTALL_REFERRER_SERVICE</code>, <code>READ_GSERVICES</code>)</td><td>Used by the Firebase libraries for app installation identifiers and for Analytics to record how the app was installed (for example, from Google Play)</td></tr>
           </tbody>
         </table>
       </div>
       <p>
-        The app requests <strong>no location, contacts, storage, camera or microphone
-        permissions.</strong>
+        The app requests <strong>no location, contacts, camera, microphone or photo
+        permissions</strong>, and the Advertising ID permission
+        (<code>com.google.android.gms.permission.AD_ID</code>) is removed from the app.
       </p>
 
       <h2 id="cookies">5. Cookies and local storage</h2>
@@ -262,11 +300,11 @@
             <tr><th scope="col">Mechanism</th><th scope="col">Purpose</th></tr>
           </thead>
           <tbody>
-            <tr><td>Local database (Hive)</td><td>Preferences, favourites, recently played, download state, cached catalogue</td></tr>
+            <tr><td>Local database (Hive)</td><td>Settings, favourites, recently played, download records, play counts waiting to be sent</td></tr>
             <tr><td>Disk image cache</td><td>Artwork, cleared automatically after 30 days</td></tr>
             <tr><td>Firestore offline persistence</td><td>Cached documents for offline browsing</td></tr>
             <tr><td>Firebase Auth token store</td><td>Keeping you signed in</td></tr>
-            <tr><td>Firebase Analytics identifiers</td><td>An app-instance ID and an advertising identifier</td></tr>
+            <tr><td>Firebase Analytics identifiers</td><td>An app-instance ID (no Advertising ID)</td></tr>
           </tbody>
         </table>
       </div>
@@ -282,7 +320,7 @@
 
       <h2 id="legal-bases">6. Legal bases for processing (UK/EU users)</h2>
       <ul>
-        <li><strong>Contract</strong> &mdash; account data and your library, needed to provide the service you asked for.</li>
+        <li><strong>Contract</strong> &mdash; account data, play counts and song requests, needed to provide the service you asked for.</li>
         <li><strong>Legitimate interests</strong> &mdash; crash reporting and analytics, to keep the app stable and understand broad usage.</li>
         <li><strong>Consent</strong> &mdash; where required by local law for analytics identifiers; you may withdraw it by uninstalling the app or contacting us.</li>
       </ul>
@@ -305,9 +343,19 @@
               <td><a href="https://firebase.google.com/support/privacy" rel="noopener noreferrer" target="_blank">firebase.google.com/support/privacy</a></td>
             </tr>
             <tr>
-              <td>Cloudflare (R2)</td>
-              <td>Audio and image delivery</td>
+              <td>Cloudflare (R2, Workers)</td>
+              <td>Audio and image delivery; relaying song-request alerts to the developer</td>
               <td><a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer" target="_blank">cloudflare.com/privacypolicy</a></td>
+            </tr>
+            <tr>
+              <td>Telegram</td>
+              <td>Delivering song-request alerts (request details, your name and email) to the developer&rsquo;s own Telegram chat</td>
+              <td><a href="https://telegram.org/privacy" rel="noopener noreferrer" target="_blank">telegram.org/privacy</a></td>
+            </tr>
+            <tr>
+              <td>Resend</td>
+              <td>Delivering song-request alert emails (request details, your name and email) to the developer&rsquo;s own mailbox</td>
+              <td><a href="https://resend.com/legal/privacy-policy" rel="noopener noreferrer" target="_blank">resend.com/legal/privacy-policy</a></td>
             </tr>
           </tbody>
         </table>
@@ -316,11 +364,13 @@
 
       <h2 id="retention">8. Data retention</h2>
       <p>
-        Account data is kept for as long as your account exists. If you request deletion, we remove
-        your account record and associated library data from our database. Crash and analytics
-        records are retained according to Google Firebase&rsquo;s standard retention periods.
-        Locally stored data (guest preferences, downloads, caches) is removed when you uninstall
-        the app.
+        Account data is kept for as long as your account exists. Song requests are kept until you
+        delete your account or we remove them. When you delete your account, your sign-in account
+        and your song requests are removed from our database. Copies of song-request alerts already
+        delivered to the developer by Telegram and email stay in the developer&rsquo;s chat and
+        mailbox until the developer deletes them. Crash and analytics records are retained
+        according to Google Firebase&rsquo;s standard retention periods. Data stored on your phone
+        (favourites, history, settings, downloads, caches) is removed when you uninstall the app.
       </p>
 
       <h2 id="rights">9. Your rights</h2>
@@ -342,9 +392,10 @@
       </p>
       <p><a class="btn btn-primary" href="delete-account.html">How to delete your account</a></p>
       <p>
-        In short: email <a href="mailto:sc5271027@gmail.com">sc5271027@gmail.com</a> from the address
-        you signed in with, and we will process the deletion within 30 days. To remove all locally
-        held data immediately, sign out and uninstall the app.
+        In short: open <strong>Profile &rarr; Delete account</strong> in the app. Or email
+        <a href="mailto:sc5271027@gmail.com">sc5271027@gmail.com</a> from the address you signed in
+        with, and we will process the deletion within 30 days. To remove all locally held data
+        immediately, uninstall the app.
       </p>
 
       <h2 id="children">11. Children&rsquo;s privacy</h2>
@@ -368,7 +419,7 @@
 
       <h2 id="transfers">13. International transfers</h2>
       <p>
-        Our providers (Google, Cloudflare) operate globally, so your data may be processed outside
+        Our providers (Google, Cloudflare, Telegram, Resend) operate globally, so your data may be processed outside
         your country, including in the United States. These providers maintain their own safeguards
         for international transfers.
       </p>
