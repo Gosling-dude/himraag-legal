@@ -1,0 +1,151 @@
+<!doctype html>
+<!--
+  HimRaag share page (NR-15): https://gosling-dude.github.io/himraag-legal/s/?song=<songId>
+
+  Source of truth for the copy on the legal site (repo Gosling-dude/himraag-legal, path s/index.html).
+  The app shares this link with a song card. On Android the page opens the song in HimRaag through
+  himraag://open/song/<songId> (an intent:// URL, so Chrome falls back to the Play Store page when
+  the app isn't installed); elsewhere it offers the Play Store link.
+
+  Self-contained on purpose: no external scripts, styles, fonts or images. The song id is checked
+  against a strict pattern and only ever placed in URLs with encodeURIComponent, never into HTML.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex">
+  <title>HimRaag</title>
+  <meta name="description" content="Pahadi music, heart of the hills. Listen on HimRaag.">
+  <meta property="og:title" content="Listen on HimRaag">
+  <meta property="og:description" content="Pahadi music, heart of the hills: Garhwali, Kumaoni, Jaunsari and Himachali songs.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0A2E45">
+  <style>
+    :root {
+      --teal-deep: #0A2E45;
+      --teal: #13707E;
+      --night: #051A28;
+      --saffron: #F2A93B;
+      --saffron-light: #FFD27A;
+      --text: #F5F2FA;
+      --muted: rgba(245, 242, 250, 0.72);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      background: linear-gradient(150deg, var(--teal) 0%, var(--teal-deep) 55%, var(--night) 100%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Devanagari", sans-serif;
+      text-align: center;
+    }
+    main { width: 100%; max-width: 380px; }
+    .logo { width: 96px; height: 96px; filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.45)); }
+    h1 { margin: 18px 0 4px; font-size: 32px; font-weight: 800; letter-spacing: 0.2px; }
+    .tagline { margin: 0 0 28px; color: var(--muted); font-size: 16px; }
+    .status { margin: 0 0 20px; font-size: 15px; color: var(--saffron-light); min-height: 1.4em; }
+    .button {
+      display: block;
+      width: 100%;
+      margin: 0 0 12px;
+      padding: 15px 20px;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .primary { background: var(--saffron); color: #1A1030; }
+    .secondary { border: 1.5px solid rgba(245, 242, 250, 0.4); color: var(--text); }
+    .button:focus-visible { outline: 3px solid var(--saffron-light); outline-offset: 3px; }
+    .hidden { display: none; }
+    footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
+    footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+<main>
+  <!-- The app icon: a play triangle with snow peaks and the sun, in Glacier Teal. -->
+  <svg class="logo" viewBox="0 0 96 96" role="img" aria-label="HimRaag logo">
+    <defs>
+      <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#13707E"/>
+        <stop offset="1" stop-color="#0A2E45"/>
+      </linearGradient>
+      <clipPath id="playShape">
+        <path d="M32 24c0-4.6 5-7.5 9-5.2l30 17.3c4 2.3 4 8 0 10.3L41 63.7c-4 2.3-9-.6-9-5.2z"/>
+      </clipPath>
+    </defs>
+    <rect width="96" height="96" rx="22" fill="url(#bg)"/>
+    <g clip-path="url(#playShape)">
+      <rect x="28" y="16" width="48" height="52" fill="#F4FAFB"/>
+      <circle cx="51" cy="40" r="7" fill="#F2A93B"/>
+      <path d="M28 54l8-7 6 5 11-12 10 10 5-4 8 6v20H28z" fill="#1D8A8F"/>
+    </g>
+  </svg>
+  <h1>HimRaag</h1>
+  <p class="tagline">Pahadi music, heart of the hills</p>
+  <p class="status" id="status" role="status"></p>
+  <a class="button primary hidden" id="open" href="#">Open in HimRaag</a>
+  <a class="button secondary" id="play"
+     href="https://play.google.com/store/apps/details?id=com.sumitchauhan.himraag">Get it on Google Play</a>
+  <footer>
+    <a href="../">Privacy, terms and account deletion</a>
+  </footer>
+</main>
+<script>
+  (function () {
+    'use strict';
+    var PACKAGE = 'com.sumitchauhan.himraag';
+    var PLAY_URL = 'https://play.google.com/store/apps/details?id=' + PACKAGE;
+
+    // Song ids are words joined by "_" (Devanagari letters allowed); anything else is ignored.
+    var ID_PATTERN = /^[\p{L}\p{M}\p{N}_\-]{1,200}$/u;
+
+    var songId = null;
+    try {
+      var raw = new URLSearchParams(window.location.search).get('song');
+      if (raw && ID_PATTERN.test(raw)) songId = raw;
+    } catch (e) {
+      songId = null;
+    }
+
+    var status = document.getElementById('status');
+    var open = document.getElementById('open');
+
+    if (!songId) {
+      status.textContent = 'Listen to Pahadi songs on HimRaag.';
+      return;
+    }
+
+    var path = 'open/song/' + encodeURIComponent(songId);
+    var isAndroid = /Android/i.test(navigator.userAgent || '');
+    // Android: Chrome opens the app, or the Play Store page when it isn't installed.
+    var appUrl = isAndroid
+      ? 'intent://' + path + '#Intent;scheme=himraag;package=' + PACKAGE +
+        ';S.browser_fallback_url=' + encodeURIComponent(PLAY_URL) + ';end'
+      : 'himraag://' + path;
+
+    open.href = appUrl;
+    open.classList.remove('hidden');
+    status.textContent = 'Someone shared a song with you.';
+
+    if (isAndroid) {
+      status.textContent = 'Opening the song in HimRaag…';
+      window.location.replace(appUrl);
+      // If nothing happened (some in-app browsers block it), the buttons stay.
+      window.setTimeout(function () {
+        status.textContent = 'Tap "Open in HimRaag" to listen.';
+      }, 2500);
+    }
+  })();
+</script>
+</body>
+</html>

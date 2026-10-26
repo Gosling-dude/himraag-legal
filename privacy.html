@@ -57,7 +57,7 @@
       <span class="eyebrow">Legal</span>
       <h1>Privacy Policy</h1>
       <p class="meta">
-        <strong>Last updated:</strong> 20 October 2026 &nbsp;·&nbsp;
+        <strong>Last updated:</strong> 26 October 2026 &nbsp;·&nbsp;
         <strong>Applies to:</strong> HimRaag Android app (<code>com.sumitchauhan.himraag</code>)
       </p>
     </div>
@@ -99,10 +99,11 @@
         <strong>The short version</strong>
         <p>
           HimRaag needs a Google sign-in. We do not sell your data, we show no ads, we do not use
-          the Advertising ID, and we never ask for your location, contacts, camera, microphone or
-          photos. Your favourites, listening history and downloads stay on your phone. Our servers
-          hold your sign-in account and any song requests you send us &mdash; and you can delete
-          your account from inside the app.
+          the Advertising ID, and we never ask for your location, contacts or microphone. Your
+          favourites, listening history, play history and downloads stay on your phone. Our servers
+          hold your sign-in account, a profile photo if you add one, a daily summary of your app use,
+          and any song requests you send us &mdash; and you can delete your account from inside the
+          app.
         </p>
       </div>
 
@@ -150,6 +151,13 @@
         We request only basic profile and email scope. <strong>We never receive your Google
         password.</strong> Authentication is handled entirely by Google.
       </p>
+      <p>
+        <strong>Profile photo (optional).</strong> If you add a photo in Profile, the picture you
+        choose (made smaller, at most 512 pixels) is stored with your account in
+        <strong>Cloud Firestore</strong> and shown to you in the app. You can change or delete it at
+        any time, and deleting your account deletes it. You choose the picture with Android&rsquo;s
+        photo picker or take it with the camera app, so HimRaag needs no photo or camera permission.
+      </p>
 
       <h3>3.2 Your library and listening activity (kept on your phone)</h3>
       <p>
@@ -161,6 +169,10 @@
         <li><strong>Listening history</strong> &mdash; recently played tracks</li>
         <li><strong>Settings</strong> &mdash; for example theme and autoplay</li>
         <li><strong>Download records</strong> &mdash; which tracks you saved for offline listening</li>
+        <li><strong>Play history</strong> &mdash; how often and when you played each song, used for
+          Pahadi Mix, mood playlists and Pahadi Radio</li>
+        <li><strong>Your own background video</strong> &mdash; if you pick a video to play behind the
+          player, it is copied into the app&rsquo;s private storage and never uploaded</li>
       </ul>
       <p>
         Signing out leaves this data on the phone. You can clear your listening history in
@@ -176,6 +188,14 @@
         abuse) and to add your plays to each song&rsquo;s anonymous total. It does not keep a list
         of which songs you played.
       </p>
+      <p>
+        <strong>Activity summary.</strong> Since app version 1.0.3, the server also keeps one record
+        per account with your email address, name, when you first and last used the app, and how
+        many songs you played each day. Since version 1.0.4 it also notes which app version you last
+        opened. The developer uses it to see who is testing, who still needs to update, and how much
+        the app is used. It does not say which songs you played, and deleting your account deletes it.
+        Previews in Discover are not counted as plays.
+      </p>
 
       <h3>3.4 Song requests</h3>
       <p>
@@ -187,11 +207,19 @@
         <strong>email</strong> (delivered by Resend), through a small Cloudflare Worker. Song
         requests are never shown to other listeners.
       </p>
+      <p>
+        <strong>&ldquo;Notify me when it&rsquo;s added&rdquo;.</strong> If you turn this on when you
+        send a request, we save a notification token for your device (from Firebase Cloud Messaging)
+        with that request, and use it only to tell you when that song is on HimRaag. The token is
+        deleted once that notification is sent, and your requests (with any token) are deleted when
+        you delete your account. If you leave it off, no token is saved.
+      </p>
 
       <h3>3.5 Recommendations</h3>
       <p>
-        Recommendations are worked out <strong>on your phone</strong> from your favourites, your
-        downloads and what you have recently played. To do this the app looks up those songs in our
+        Recommendations, Pahadi Mix playlists, mood playlists and Pahadi Radio are worked out
+        <strong>on your phone</strong> from your favourites, your downloads, what you have recently
+        played and your play history. To do this the app looks up those songs in our
         catalogue. This processing only orders the content shown inside the app.
         <strong>We do not use your data to target advertising</strong>, and we do not share it with
         advertisers or data brokers for any purpose.
@@ -272,17 +300,20 @@
             <tr><td><code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code></td><td>Streaming music and checking connectivity</td></tr>
             <tr><td><code>FOREGROUND_SERVICE</code>, <code>FOREGROUND_SERVICE_MEDIA_PLAYBACK</code></td><td>Continuing playback when the app is in the background</td></tr>
             <tr><td><code>WAKE_LOCK</code></td><td>Preventing the device sleeping mid-track</td></tr>
-            <tr><td><code>POST_NOTIFICATIONS</code></td><td>Showing the playback notification with track controls</td></tr>
+            <tr><td><code>POST_NOTIFICATIONS</code></td><td>Showing the playback notification with track controls, and &mdash; only if you turn on &ldquo;Notify me&rdquo; for a song request &mdash; telling you when that song is added</td></tr>
             <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>Declared for the media-playback service (restoring the media session after the phone restarts)</td></tr>
             <tr><td><code>READ_EXTERNAL_STORAGE</code> (Android 12 and older only)</td><td>Declared in the app manifest; the app does not ask for it while running, and downloads are kept in the app&rsquo;s private folder, which needs no storage permission</td></tr>
-            <tr><td>Google Play services permissions added by Firebase (<code>c2dm.permission.RECEIVE</code>, <code>BIND_GET_INSTALL_REFERRER_SERVICE</code>, <code>READ_GSERVICES</code>)</td><td>Used by the Firebase libraries for app installation identifiers and for Analytics to record how the app was installed (for example, from Google Play)</td></tr>
+            <tr><td>Google Play services permissions added by Firebase (<code>c2dm.permission.RECEIVE</code>, <code>BIND_GET_INSTALL_REFERRER_SERVICE</code>, <code>READ_GSERVICES</code>)</td><td>Used by the Firebase libraries to receive song-request notifications, for app installation identifiers, and for Analytics to record how the app was installed (for example, from Google Play)</td></tr>
           </tbody>
         </table>
       </div>
       <p>
         The app requests <strong>no location, contacts, camera, microphone or photo
         permissions</strong>, and the Advertising ID permission
-        (<code>com.google.android.gms.permission.AD_ID</code>) is removed from the app.
+        (<code>com.google.android.gms.permission.AD_ID</code>) is removed from the app. Photos and
+        videos you choose yourself (a profile photo, or a video to play behind the player) come
+        through Android&rsquo;s photo picker, which gives the app only the item you pick and needs no
+        permission.
       </p>
 
       <h2 id="cookies">5. Cookies and local storage</h2>
@@ -300,7 +331,7 @@
             <tr><th scope="col">Mechanism</th><th scope="col">Purpose</th></tr>
           </thead>
           <tbody>
-            <tr><td>Local database (Hive)</td><td>Settings, favourites, recently played, download records, play counts waiting to be sent</td></tr>
+            <tr><td>Local database (Hive)</td><td>Settings, favourites, recently played, play history, download records, play counts waiting to be sent, request notifications already shown</td></tr>
             <tr><td>Disk image cache</td><td>Artwork, cleared automatically after 30 days</td></tr>
             <tr><td>Firestore offline persistence</td><td>Cached documents for offline browsing</td></tr>
             <tr><td>Firebase Auth token store</td><td>Keeping you signed in</td></tr>
@@ -338,8 +369,8 @@
           </thead>
           <tbody>
             <tr>
-              <td>Google (Firebase Authentication, Cloud Firestore, Analytics, Crashlytics)</td>
-              <td>Authentication, database, analytics, crash reporting</td>
+              <td>Google (Firebase Authentication, Cloud Firestore, Cloud Messaging, Analytics, Crashlytics)</td>
+              <td>Authentication, database, song-request notifications, analytics, crash reporting</td>
               <td><a href="https://firebase.google.com/support/privacy" rel="noopener noreferrer" target="_blank">firebase.google.com/support/privacy</a></td>
             </tr>
             <tr>
@@ -365,12 +396,14 @@
       <h2 id="retention">8. Data retention</h2>
       <p>
         Account data is kept for as long as your account exists. Song requests are kept until you
-        delete your account or we remove them. When you delete your account, your sign-in account
-        and your song requests are removed from our database. Copies of song-request alerts already
+        delete your account or we remove them; a request&rsquo;s notification token is deleted once
+        its notification is sent. When you delete your account, your sign-in account, your song
+        requests, your profile photo and your activity summary are removed from our database. Copies of song-request alerts already
         delivered to the developer by Telegram and email stay in the developer&rsquo;s chat and
         mailbox until the developer deletes them. Crash and analytics records are retained
         according to Google Firebase&rsquo;s standard retention periods. Data stored on your phone
-        (favourites, history, settings, downloads, caches) is removed when you uninstall the app.
+        (favourites, history, play history, settings, downloads, your own background video, caches)
+        is removed when you uninstall the app.
       </p>
 
       <h2 id="rights">9. Your rights</h2>
