@@ -27,6 +27,7 @@ something the shipped application really does.
 | Terms of Service | [`/terms.html`](https://gosling-dude.github.io/himraag-legal/terms.html) | Store listing, in-app link |
 | Delete Account | [`/delete-account.html`](https://gosling-dude.github.io/himraag-legal/delete-account.html) | **Play Console → Data deletion URL** |
 | Contact | [`/contact.html`](https://gosling-dude.github.io/himraag-legal/contact.html) | Support, bug reports, DMCA |
+| Credits | [`/credits.html`](https://gosling-dude.github.io/himraag-legal/credits.html) | Credits for the app's background videos (the HikingFex licence requires its credit line) |
 | 404 | `/404.html` | Served automatically for unknown paths |
 
 ---
@@ -40,6 +41,7 @@ himraag-legal/
 ├── terms.html              # Terms of Service
 ├── delete-account.html     # Account & data deletion  (Play requirement)
 ├── contact.html            # Support, bug reports, DMCA
+├── credits.html            # Background video credits (HikingFex, Pixabay, Pexels, Mixkit)
 ├── 404.html                # Not-found page (root-absolute asset paths)
 ├── README.md               # This file
 ├── LICENSE                 # MIT for the code, with a carve-out for legal text
